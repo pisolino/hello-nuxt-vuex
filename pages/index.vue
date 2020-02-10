@@ -31,6 +31,9 @@ export default {
   components: {
     Logo
   },
+  async asyncData({ store }) {
+    await store.dispatch({ type: 'rate/fetchRate' });
+  },
   computed: {
     ...mapGetters('sampleHoge', {
       hoge: 'getHoge'
@@ -45,7 +48,7 @@ export default {
       setHoge: 'setHoge'
     }),
     ...mapActions('rate', {
-      fetchRate: 'fetchRate',
+      // fetchRate: 'fetchRate',
       infiniteRate: 'infiniteRate',
       stopintervalTimer: 'stopintervalTimer'
     }),
@@ -57,7 +60,9 @@ export default {
     }
   },
   created() {
-    this.fetchRate();
+    // this.fetchRate();
+    // this.startRateInterval();
+    // ここでintervalを呼ぶとサーバーサイドでも実行されてしまうのでNG
   },
   mounted() {
     this.setHoge({ name: 'that is Hoge' });

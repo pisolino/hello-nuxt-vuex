@@ -55,6 +55,10 @@ export const actions = {
     context.commit('intervalTimer', null);
   },
   infiniteRate(context) {
+    console.log(process.server);
+    if (process.server) {
+      throw Error("Infinite loop actions must not be called from server side.");
+    }
     if (this.getters['rate/getIntervalStatus']) {
         return;
     }
